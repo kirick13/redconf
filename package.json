@@ -1,13 +1,17 @@
 {
 	"name": "redconf",
-	"version": "1.0.1-beta.6",
+	"version": "1.0.1-beta.10",
 	"description": "Store configuration in Redis, but access it in synchronous way.",
+	"publishConfig": {
+		"access": "public",
+		"tag": "beta"
+	},
 	"main": "main.js",
 	"engines": {
 		"node": ">=12.0.0"
 	},
-	"dependencies": {
-		"@kirick/redis-client": "4.0.1-beta.1"
+	"peerDependencies": {
+		"@kirick/redis-client": "^4.0.1-beta.2"
 	},
 	"repository": {
 		"type": "git",
