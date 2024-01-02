@@ -1,4 +1,5 @@
 
+/* eslint-disable jsdoc/require-jsdoc */
 /* global test, expect */
 
 import { createClient } from 'redis';

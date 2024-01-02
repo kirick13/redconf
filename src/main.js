@@ -179,8 +179,8 @@ export class Redconf {
 /**
  * Creates Redconf instance.
  * @async
- * @param {RedconfOptions} options
- * @returns {Promise<Redconf>}
+ * @param {RedconfOptions} options -
+ * @returns {Promise<Redconf>} Redconf instance.
  */
 export async function createRedconf(options) {
 	const [
