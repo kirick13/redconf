@@ -1,17 +1,45 @@
 {
 	"name": "redconf",
-	"version": "1.0.1-beta.10",
+	"version": "1.1.0-beta.1",
 	"description": "Store configuration in Redis, but access it in synchronous way.",
 	"publishConfig": {
-		"access": "public",
-		"tag": "beta"
+		"access": "public"
 	},
-	"main": "main.js",
+	"type": "module",
+	"main": "src/main.js",
+	"exports": {
+		".": {
+			"import": "./src/main.js",
+			"require": "./dist/redconf.cjs"
+		}
+	},
 	"engines": {
 		"node": ">=12.0.0"
 	},
 	"peerDependencies": {
-		"@kirick/redis-client": "^4.0.1-beta.2"
+		"redis": "^4.1"
+	},
+	"devDependencies": {
+		"@babel/eslint-parser": "7.21.8",
+		"eslint": "8.41.0",
+		"eslint-config-xo": "0.43.1",
+		"eslint-plugin-import": "2.27.5",
+		"eslint-plugin-jsdoc": "46.5.0",
+		"eslint-plugin-node": "11.1.0",
+		"eslint-plugin-promise": "6.1.1",
+		"eslint-plugin-unicorn": "47.0.0",
+		"jest": "^29.7.0",
+		"valibot": "^0.25.0"
+	},
+	"scripts": {
+		"test": "bun run redis-up && bun test && npm run test-node",
+		"test-node": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit",
+		"coverage": "bun run redis-up && bun test --coverage",
+		"build": "bun run build-cjs",
+		"build-cjs": "bunx esbuild --bundle --platform=node --format=cjs --packages=external --outfile=dist/redconf.cjs src/main.js",
+		"npm-publish": "bun run build && bun run eslint . && bun run test && npm publish --tag beta; bun run redis-down",
+		"redis-up": "docker ps | grep test-redis-redconf >/dev/null || docker run --rm -d -p 51934:6379 --name test-redis-redconf redis:7-alpine",
+		"redis-down": "docker stop test-redis-redconf"
 	},
 	"repository": {
 		"type": "git",
